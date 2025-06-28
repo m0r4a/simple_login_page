@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            background: rgba(25, 25, 35, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo h1 {
+            color: #ffffff;
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .logo p {
+            color: #b8b8b8;
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #e0e0e0;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #404040;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: rgba(30, 30, 40, 0.8);
+            color: #ffffff;
+        }
+
+        .form-group input::placeholder {
+            color: #888;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+            transform: translateY(-2px);
+            background: rgba(35, 35, 45, 0.9);
+        }
+
+        .form-group input:hover {
+            border-color: #606060;
+            background: rgba(35, 35, 45, 0.8);
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-bottom: 25px;
+        }
+
+        .forgot-password a {
+            color: #8a9cff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password a:hover {
+            color: #a5b4ff;
+            text-decoration: underline;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            background: linear-gradient(135deg, #7c8ef2 0%, #8a5ab8 100%);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .divider {
+            text-align: center;
+            margin: 30px 0;
+            position: relative;
+            color: #888;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #404040;
+        }
+
+        .divider span {
+            background: rgba(25, 25, 35, 0.95);
+            padding: 0 20px;
+        }
+
+        .social-login {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .social-btn {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #404040;
+            border-radius: 8px;
+            background: rgba(40, 40, 50, 0.8);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            color: #e0e0e0;
+            font-weight: 500;
+        }
+
+        .social-btn:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+            background: rgba(50, 50, 60, 0.9);
+        }
+
+        .register-link {
+            text-align: center;
+            color: #b8b8b8;
+            font-size: 0.9rem;
+        }
+
+        .register-link a {
+            color: #8a9cff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+            color: #a5b4ff;
+        }
+
+        .error-message {
+            background: rgba(220, 53, 69, 0.15);
+            color: #ff6b7a;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #ff6b7a;
+            border: 1px solid rgba(220, 53, 69, 0.3);
+            display: none;
+        }
+
+        .success-message {
+            background: rgba(40, 167, 69, 0.15);
+            color: #51cf66;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #51cf66;
+            border: 1px solid rgba(40, 167, 69, 0.3);
+            display: none;
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 30px 25px;
+            }
+            
+            .logo h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <h1>Bienvenido</h1>
+            <p>Inicia sesión para continuar</p>
+        </div>
+
+        <div id="errorMessage" class="error-message"></div>
+        <div id="successMessage" class="success-message"></div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Correo electrónico</label>
+                <input type="email" id="email" name="email" placeholder="tu@ejemplo.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" name="password" placeholder="••••••••" required>
+            </div>
+
+            <div class="forgot-password">
+                <a href="#" onclick="showMessage('Función no implementada', 'error')">¿Olvidaste tu contraseña?</a>
+            </div>
+
+            <button type="submit" class="login-btn">Iniciar Sesión</button>
+        </form>
+
+        <div class="divider">
+            <span>o continúa con</span>
+        </div>
+
+        <div class="social-login">
+            <a href="#" class="social-btn" onclick="showMessage('Login con Google no implementado', 'error')">
+                Google
+            </a>
+            <a href="#" class="social-btn" onclick="showMessage('Login con Facebook no implementado', 'error')">
+                Facebook
+            </a>
+        </div>
+
+        <div class="register-link">
+            ¿No tienes cuenta? <a href="#" onclick="showMessage('Registro no implementado', 'error')">Regístrate aquí</a>
+        </div>
+    </div>
+
+    <script>
+        // Datos de usuario demo
+        const demoUser = {
+            email: 'demo@ejemplo.com',
+            password: '123456'
+        };
+
+        // Función para mostrar mensajes
+        function showMessage(message, type) {
+            const errorDiv = document.getElementById('errorMessage');
+            const successDiv = document.getElementById('successMessage');
+            
+            // Ocultar ambos mensajes
+            errorDiv.style.display = 'none';
+            successDiv.style.display = 'none';
+            
+            if (type === 'error') {
+                errorDiv.textContent = message;
+                errorDiv.style.display = 'block';
+            } else {
+                successDiv.textContent = message;
+                successDiv.style.display = 'block';
+            }
+            
+            // Ocultar mensaje después de 3 segundos
+            setTimeout(() => {
+                errorDiv.style.display = 'none';
+                successDiv.style.display = 'none';
+            }, 3000);
+        }
+
+        // Manejar el envío del formulario
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Validación básica
+            if (!email || !password) {
+                showMessage('Por favor, completa todos los campos', 'error');
+                return;
+            }
+            
+            // Verificar credenciales demo
+            if (email === demoUser.email && password === demoUser.password) {
+                showMessage('¡Inicio de sesión exitoso! Bienvenido de vuelta.', 'success');
+                
+                // Simular redirección después de 2 segundos
+                setTimeout(() => {
+                    showMessage('Redirigiendo al dashboard...', 'success');
+                }, 2000);
+            } else {
+                showMessage('Credenciales incorrectas. Intenta con: demo@ejemplo.com / 123456', 'error');
+            }
+        });
+
+        // Efectos adicionales de interacción
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.02)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
